@@ -1,0 +1,59 @@
+﻿@model Nop.Plugin.Payments.EPayment.Models.BankModel
+@{
+    Layout = "_ColumnsOne";
+}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+	$(document).ready(function () {
+        var form = document.getElementById('myForm');
+        var formData = new FormData(form);
+
+        var request = new XMLHttpRequest();
+        request.open('POST', form.action);
+        request.onreadystatechange = function () {
+            if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+                // Form submitted successfully
+            }
+        };
+    //request.send(formData);
+
+	});
+    
+
+    $(function () {
+
+        $("#btn-submit443").trigger("click");
+    
+	});
+        
+
+    </script>
+<form id="myForm" action="https://tecom.albaraka.com.sy:8433/ss-ecom-merchant-kit/buyForm/completeTransaction" method="post">
+    <!-- form fields -->
+    <input type="hidden" name="authenticationToken" value="@Model.AuthenticationToken" />
+    <input type="hidden" name="callBackUrl" value="@Model.CallBackUrl" />
+    <input type="hidden" name="cardAcceptor" value="@Model.CardAcceptor" />
+    <input type="hidden" name="cardHolderIPAddress" value="@Model.CardHolderIPAddress" />
+    <input type="hidden" name="cardHolderMailAddress" value="@Model.CardHolderMailAddress" />
+    <input type="hidden" name="cardHolderPhoneNumber" value="@Model.CardHolderPhoneNumber" />
+    <input type="hidden" name="countryCode" value="@Model.CountryCode" />
+    <input type="hidden" name="currency" value="@Model.Currency" />
+    <input type="hidden" name="dateTimeBuyer" value="@Model.DateTimeBuyer" />
+    <input type="hidden" name="dateTimeSIC" value="@Model.DateTimeSIC" />
+    <input type="hidden" name="language" value="@Model.Language" />
+    <input type="hidden" name="mcc" value="@Model.Mcc" />
+    <input type="hidden" name="merchantKitId" value="@Model.MerchantKitId" />
+    <input type="hidden" name="mpiId" value="@Model.MpiId" />
+    <input type="hidden" name="pspId" value="@Model.PspId" />
+    <input type="hidden" name="redirectBackUrl" value="@Model.RedirectBackUrl" />
+    <input type="hidden" name="transactionAmount" value="@Model.TransactionAmount" />
+    <input type="hidden" name="transactionReference" value="@Model.TransactionReference" />
+    <input type="hidden" name="transactionTypeIndicator" value="@Model.TransactionTypeIndicator" />
+
+    <p>
+        <input id="btn-submit443" type="submit" name="pp_submit" value="Click here if
+            you&#039;re not automatically redirected..." />
+    </p>
+</form>

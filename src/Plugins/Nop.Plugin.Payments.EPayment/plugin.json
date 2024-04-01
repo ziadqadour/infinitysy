@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Payment methods",
+  "FriendlyName": "EPayment",
+  "SystemName": "Payments.EPayment",
+  "Version": "1.74",
+  "SupportedVersions": [ "4.60" ],
+  "Author": "Ziad Qadour",
+  "DisplayOrder": 0,
+  "FileName": "Nop.Plugin.Payments.EPayment.dll",
+  "Description": "This plugin allows paying with Bank Payment"
+}

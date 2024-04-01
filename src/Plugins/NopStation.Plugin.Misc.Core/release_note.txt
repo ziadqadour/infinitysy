@@ -1,0 +1,4 @@
+﻿﻿4.60.1.0: Initial release
+4.60.1.1: Bug fixes for view path
+4.60.1.2: Static routes added
+4.60.1.3: License key length updated and path reference fixed for CSS

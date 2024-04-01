@@ -1,0 +1,12 @@
+﻿{
+  "Group": "Nop-Station",
+  "FriendlyName": "Nop-Station Web API",
+  "SystemName": "NopStation.Plugin.Misc.WebApi",
+  "Version": "4.60.1.4",
+  "SupportedVersions": [ "4.60" ],
+  "Author": "Nop Station Team",
+  "DisplayOrder": 1,
+  "FileName": "NopStation.Plugin.Misc.WebApi.dll",
+  "Description": "This plugin enables api for nopCommerce store.",
+  "DependsOnSystemNames": [ "NopStation.Core" ]
+}

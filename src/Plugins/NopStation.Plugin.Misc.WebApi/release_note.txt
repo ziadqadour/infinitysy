@@ -1,0 +1,5 @@
+﻿4.60.1.0: Initial release
+4.60.1.1: Api category icon replaced with default category image and set language fixed
+4.60.1.2: Add product to cart fixed with counts
+4.60.1.3: Fixed api string resource insertion on plugin installation
+4.60.1.4: Slider cache issue fixed

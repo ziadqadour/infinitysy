@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Vendor Permission",
+  "FriendlyName": "Vendor Permission",
+  "SystemName": "Misc.VendorPermission",
+  "Version": "1.74",
+  "SupportedVersions": [ "4.60" ],
+  "Author": "Ziad Qadour",
+  "DisplayOrder": 0,
+  "FileName": "Nop.Plugin.Misc.VendorPermission.dll",
+  "Description": "This plugin add new permissions for vendors"
+}

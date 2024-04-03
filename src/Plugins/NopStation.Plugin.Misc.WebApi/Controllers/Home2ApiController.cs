@@ -204,6 +204,87 @@ namespace NopStation.Plugin.Misc.WebApi.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet("manufacturers")]
+        public virtual async Task<IActionResult> Manufacturers()
+        {
+            var response = new GenericResponseModel<List<ManufacturerModel>>
+            {
+                Data = (await _catalogApiModelFactory.PrepareHomepageManufacturerModelsAsync()).ToList()
+            };
+
+            return Ok(response);
+        }
+
+        [HttpGet("categorytree")]
+        public virtual async Task<IActionResult> CategoryTree()
+        {
+            var response = new GenericResponseModel<List<CategoryTreeModel>>();
+            var model = await _catalogApiModelFactory.PrepareCategoryTreeModelAsync();
+            response.Data = model.ToList();
+            return Ok(response);
+        }
+
+        [HttpGet("featureproducts")]
+        public virtual async Task<IActionResult> FeatureProducts(int? productThumbPictureSize)
+        {
+            var response = new GenericResponseModel<List<ProductOverviewModel>>();
+            var model = new List<ProductOverviewModel>();
+            var products = await _productService.GetAllProductsDisplayedOnHomepageAsync();
+            //ACL and store mapping
+            products = await products.WhereAwait(async p => (await _aclService.AuthorizeAsync(p)) && (await _storeMappingService.AuthorizeAsync(p))).ToListAsync();
+            //availability dates
+            products = products.Where(p => _productService.ProductIsAvailable(p)).ToList();
+
+            products = products.Where(p => p.VisibleIndividually).ToList();
+
+            model = (await _productModelFactory.PrepareProductOverviewModelsAsync(products, true, true, productThumbPictureSize)).ToList();
+            response.Data = model;
+            return Ok(response);
+        }
+
+        [HttpGet("bestsellerproducts")]
+        public virtual async Task<IActionResult> BestSellerproducts(int? productThumbPictureSize)
+        {
+            var response = new GenericResponseModel<List<ProductOverviewModel>>();
+            var model = new List<ProductOverviewModel>();
+
+            if (!_webApiSettings.ShowBestsellersOnHomepage || _webApiSettings.NumberOfBestsellersOnHomepage <= 0)
+            {
+                response.Data = model;
+                return BadRequest(response);
+            }
+
+            var cacheKey = _cacheManager.PrepareKeyForDefaultCache(ApiModelCacheDefaults.HomepageBestsellersIdsKey,
+                       (await _storeContext.GetCurrentStoreAsync()).Id);
+
+            //load and cache report
+            var report = await _cacheManager.GetAsync(cacheKey,
+                async () => (await _orderReportService.BestSellersReportAsync(
+                        storeId: (await _storeContext.GetCurrentStoreAsync()).Id,
+                        pageSize: _webApiSettings.NumberOfBestsellersOnHomepage)).ToList());
+
+            //load products
+            var products = await _productService.GetProductsByIdsAsync(report.Select(x => x.ProductId).ToArray());
+            //ACL and store mapping
+            products = await products.WhereAwait(async p => (await _aclService.AuthorizeAsync(p)) && (await _storeMappingService.AuthorizeAsync(p))).ToListAsync();
+            //availability dates
+            products = products.Where(p => _productService.ProductIsAvailable(p)).ToList();
+
+            model = (await _productModelFactory.PrepareProductOverviewModelsAsync(products, true, true, productThumbPictureSize)).ToList();
+            response.Data = model;
+            return Ok(response);
+        }
+
+        [HttpGet("homepagecategorieswithproducts")]
+        public virtual async Task<IActionResult> HomePageCategoriesWithProducts()
+        {
+            var response = new GenericResponseModel<List<HomepageCategoryModel>>();
+            var model = await _catalogApiModelFactory.PrepareHomepageCategoriesWithProductsModelAsync();
+            response.Data = model.ToList();
+            return Ok(response);
+        }
+
         #endregion
     }
 }

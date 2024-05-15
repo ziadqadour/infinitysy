@@ -4,9 +4,7 @@
 }
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-<script type="text/javascript">
-
-	$(document).ready(function () {
+<script type="text/javascript">$(document).ready(function () {
         var form = document.getElementById('myForm');
         var formData = new FormData(form);
 
@@ -17,20 +15,18 @@
                 // Form submitted successfully
             }
         };
-    //request.send(formData);
+        //request.send(formData);
 
-	});
-    
+    });
+
 
     $(function () {
 
         $("#btn-submit443").trigger("click");
-    
-	});
-        
 
-    </script>
-<form id="myForm" action="https://tecom.albaraka.com.sy:8433/ss-ecom-merchant-kit/buyForm/completeTransaction" method="post">
+    });</script>
+
+<form id="myForm" action="https://ecom.albaraka.com.sy:8443/ss-ecom-merchant-kit/buyForm/completeTransaction" method="post">
     <!-- form fields -->
     <input type="hidden" name="authenticationToken" value="@Model.AuthenticationToken" />
     <input type="hidden" name="callBackUrl" value="@Model.CallBackUrl" />
